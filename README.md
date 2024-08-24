@@ -43,7 +43,8 @@ class D {
   LivrariaVirtual "*" *-- "1" Impresso
   LivrariaVirtual "*" *-- "1" Eletronico
   Venda "1" *-- "*" Livro
-Impresso --- D
-  Eletronico --- D
-  D --> Livro
+ Impresso --|> Livro
+  Eletronico --|> Livro
+  
+  Impresso -- Eletronico : Relacionado
 ```
