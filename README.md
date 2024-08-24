@@ -8,7 +8,8 @@ classDiagram
     - int MAX_VENDAS = 50
     - int numImpressos
     - int numEletronicos
-	-int numVendas
+    - int numVendas
+	+ cadastrarLivro() void
   }
 
   class Venda {
@@ -34,18 +35,14 @@ classDiagram
     - float preco
   }
 
-class D {
-    
-  }
-
   LivrariaVirtual "*" *-- "0" Venda
   LivrariaVirtual "*" *-- "1" Impresso
   LivrariaVirtual "*" *-- "1" Eletronico
   Venda "1" *-- "*" Livro
-Impresso --- D
-  Eletronico --- D
-  D --> Livro
+  Impresso --> Livro
+  Eletronico --> Livro
+  Impresso -- Eletronico
 
-  %% Aplicando o estilo empty ao D
-  class D empty
+
+
 ```
