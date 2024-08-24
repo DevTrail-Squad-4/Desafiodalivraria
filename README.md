@@ -34,11 +34,16 @@ classDiagram
     - float preco
   }
 
+class D {
+    %% Define a classe D como um placeholder invisível
+    classDef empty width:0px,height:0px;
+  }
+
   LivrariaVirtual "*" *-- "0" Venda
   LivrariaVirtual "*" *-- "1" Impresso
   LivrariaVirtual "*" *-- "1" Eletronico
   Venda "1" *-- "*" Livro
-Impresso --- D[]:::empty
-    Eletronico -- D
-D --|> Livro
+Impresso --- D
+  Eletronico --- D
+  D --> Livro
 ```
