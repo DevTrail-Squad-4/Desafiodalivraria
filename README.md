@@ -38,7 +38,7 @@ classDiagram
   LivrariaVirtual "*" *-- "1" Impresso
   LivrariaVirtual "*" *-- "1" Eletronico
   Venda "1" *-- "*" Livro
-Impresso --|> Livro
-    Eletronico --|> Livro
-Impresso -- Eletronico
+Impresso --- D[]:::empty
+    Eletronico -- D
+D --|> Livro
 ```
