@@ -34,8 +34,8 @@ classDiagram
     - float preco
   }
 
-  User "*" *-- "0" Venda
-  User "*" *-- "1" Impresso
-  User "*" *-- "1" Eletronico
-  Venda "1" *-- "*" NewsItem
+  LivrariaVirtual "*" *-- "0" Venda
+  LivrariaVirtual "*" *-- "1" Impresso
+  LivrariaVirtual "*" *-- "1" Eletronico
+  LivrariaVirtual "1" *-- "*" NewsItem
 ```
