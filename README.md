@@ -36,7 +36,7 @@ classDiagram
 
 class D {
     %% Define a classe D como um placeholder invisível
-    classDef empty width:0px,height:0px;
+    classDef hidden fill:#ffffff,stroke:#ffffff;
   }
 
   LivrariaVirtual "*" *-- "0" Venda
