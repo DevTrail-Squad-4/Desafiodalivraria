@@ -40,5 +40,5 @@ classDiagram
   Venda "1" *-- "*" Livro
 Impresso --|> Livro
     Eletronico --|> Livro
-Impressos -- Eletronico
+Impresso -- Eletronico
 ```
