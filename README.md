@@ -37,5 +37,5 @@ classDiagram
   LivrariaVirtual "*" *-- "0" Venda
   LivrariaVirtual "*" *-- "1" Impresso
   LivrariaVirtual "*" *-- "1" Eletronico
-  LivrariaVirtual "1" *-- "*" NewsItem
+  LivrariaVirtual "1" *-- "*" Livro
 ```
