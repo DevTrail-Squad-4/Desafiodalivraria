@@ -38,4 +38,6 @@ classDiagram
   LivrariaVirtual "*" *-- "1" Impresso
   LivrariaVirtual "*" *-- "1" Eletronico
   Venda "1" *-- "*" Livro
+Livro <|-- Impressos
+    Livro <|-- Eletronico
 ```
