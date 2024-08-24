@@ -10,6 +10,12 @@ classDiagram
     - int numEletronicos
     - int numVendas
 	+ cadastrarLivro() void
++ realizarVenda() void
++ listarLivrosImpressos() void
++ listarLivrosEletronicos() void
++ listarLivros() void
++ listarVendas() void
++ main(args : String[]) void
   }
 
   class Venda {
@@ -17,15 +23,20 @@ classDiagram
     - int numero
     - String cliente
     - float valor
++ addLivro(Livro l, int index) void
++ listarLivros() void
   }
 
   class Impresso {
     - float frete
     - int estoque
++ atualizarEstoque() void
++ toString() String
   }
 
   class Eletronico {
     - int tamanho
++ toString() String
   }
 
   class Livro {
@@ -33,6 +44,7 @@ classDiagram
     - String autores
     - String editora
     - float preco
++ toString() String
   }
 
   LivrariaVirtual "*" *-- "0" Venda
