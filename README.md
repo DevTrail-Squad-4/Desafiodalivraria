@@ -43,8 +43,10 @@ class D {
   LivrariaVirtual "*" *-- "1" Impresso
   LivrariaVirtual "*" *-- "1" Eletronico
   Venda "1" *-- "*" Livro
- Impresso --|> Livro
-  Eletronico --|> Livro
-  
-  Impresso -- Eletronico : Relacionado
+Impresso --- D
+  Eletronico --- D
+  D --> Livro
+
+  %% Aplicando o estilo empty ao D
+  class D empty
 ```
