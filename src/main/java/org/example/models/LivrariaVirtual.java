@@ -12,7 +12,7 @@ public class LivrariaVirtual implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private UUID id;
+    private Long id;
 
     private static final int MAX_IMPRESSOS = 10;
     private static final int MAX_ELETRONICOS = 20;

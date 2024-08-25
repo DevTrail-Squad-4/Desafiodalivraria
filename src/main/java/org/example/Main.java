@@ -18,7 +18,7 @@ public class Main {
             System.out.println("5 - Sair");
 
             int opcao = scanner.nextInt();
-            scanner.nextLine(); // Limpar o buffer
+            scanner.nextLine();
 
             switch (opcao) {
                 case 1:

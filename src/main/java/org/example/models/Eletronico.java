@@ -8,7 +8,7 @@ public class Eletronico extends Livro implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private UUID id;
+    private Long id;
 
     private int tamanho;
 

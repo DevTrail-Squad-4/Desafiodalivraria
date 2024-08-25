@@ -10,7 +10,7 @@ public class Venda implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private UUID id;
+    private Long id;
 
     private static int numVendas = 0;
     private int numero;
