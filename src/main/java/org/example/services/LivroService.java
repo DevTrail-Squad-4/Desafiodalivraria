@@ -23,10 +23,10 @@ public class LivroService {
     }
 
     public List<Impresso> listarLivrosImpressos() {
-        return livroDAO.findImpressos();
+        return livroDAO.listarImpressos();
     }
 
     public List<Eletronico> listarLivrosEletronicos() {
-        return livroDAO.findEletronicos();
+        return livroDAO.listarEletronicos();
     }
 }
