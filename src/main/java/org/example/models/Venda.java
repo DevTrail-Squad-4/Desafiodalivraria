@@ -24,14 +24,14 @@ public class Venda implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "livro_id"))
     private List<Livro> livros = new ArrayList<>();
     private String cliente;
-    private float valor;
+    private double valor;
 
 
     public Venda(String cliente) {
         this.numero = ++numVendas;
         this.livros = new ArrayList<>();
         this.cliente = cliente;
-        this.valor = 0.0f;
+        this.valor = 0.0;
     }
 
     @Override
@@ -58,8 +58,8 @@ public class Venda implements Serializable {
     public String getCliente() { return cliente; }
     public void setCliente(String cliente) { this.cliente = cliente; }
 
-    public float getValor() { return valor; }
-    public void setValor(float valor) { this.valor = valor; }
+    public double getValor() { return valor; }
+    public void setValor(double valor) { this.valor = valor; }
 
 //    // Métodos
 //    public void addLivro(Livro l, int index) {
