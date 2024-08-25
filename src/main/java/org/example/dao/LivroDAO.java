@@ -1,65 +1,90 @@
 package org.example.DAO;
 
 import org.example.models.Livro;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.example.util.HibernateUtil;
+import org.example.util.JpaUtil;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import java.util.List;
 
 public class LivroDAO {
 
     public void salvar(Livro livro) {
-        Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            session.save(livro);
+        EntityTransaction transaction = null;
+        EntityManager em = JpaUtil.getEntityManager();
+        try {
+            transaction = em.getTransaction();
+            transaction.begin();
+            em.persist(livro);
             transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) {
+            if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
             e.printStackTrace();
+        } finally {
+            em.close();
         }
     }
 
     public List<Livro> listarTodos() {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from Livro", Livro.class).list();
+        EntityManager em = JpaUtil.getEntityManager();
+        try {
+            return em.createQuery("from Livro", Livro.class).getResultList();
+        } finally {
+            em.close();
         }
     }
 
     public Livro buscarPorId(Long id) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.get(Livro.class, id);
+        EntityManager em = JpaUtil.getEntityManager();
+        try {
+            return em.find(Livro.class, id);
+        } finally {
+            em.close();
         }
     }
 
     public void atualizar(Livro livro) {
-        Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            session.update(livro);
+        EntityTransaction transaction = null;
+        EntityManager em = JpaUtil.getEntityManager();
+        try {
+            transaction = em.getTransaction();
+            transaction.begin();
+            em.merge(livro);
             transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) {
+            if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
             e.printStackTrace();
+        } finally {
+            em.close();
         }
     }
 
     public void deletar(Livro livro) {
-        Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            session.delete(livro);
+        EntityTransaction transaction = null;
+        EntityManager em = JpaUtil.getEntityManager();
+        try {
+            transaction = em.getTransaction();
+            transaction.begin();
+            if (em.contains(livro)) {
+                em.remove(livro);
+            } else {
+                Livro livroManaged = em.find(Livro.class, livro.getId());
+                if (livroManaged != null) {
+                    em.remove(livroManaged);
+                }
+            }
             transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) {
+            if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
             e.printStackTrace();
+        } finally {
+            em.close();
         }
     }
 }
