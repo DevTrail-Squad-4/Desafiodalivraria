@@ -7,8 +7,6 @@ import java.util.Scanner;
 @Entity
 public class LivrariaVirtual implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private static final long serialVersionUID = 1L;
 
     @Id
