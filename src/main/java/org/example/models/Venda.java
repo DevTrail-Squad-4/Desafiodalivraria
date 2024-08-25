@@ -18,8 +18,11 @@ public class Venda implements Serializable {
     private static int numVendas = 0;
     private int numero;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Livro> livros;
+    @ManyToMany
+    @JoinTable(name = "venda_livro",
+            joinColumns = @JoinColumn(name = "venda_id"),
+            inverseJoinColumns = @JoinColumn(name = "livro_id"))
+    private List<Livro> livros = new ArrayList<>();
     private String cliente;
     private float valor;
 
@@ -58,21 +61,21 @@ public class Venda implements Serializable {
     public float getValor() { return valor; }
     public void setValor(float valor) { this.valor = valor; }
 
-    // Métodos
-    public void addLivro(Livro l, int index) {
-        if (index >= 0 && index < livros.size()) {
-            livros.add(index, l);
-            valor += l.getPreco();
-            if (l instanceof Impresso) {
-                ((Impresso) l).atualizarEstoque();
-            }
-        }
-    }
+//    // Métodos
+//    public void addLivro(Livro l, int index) {
+//        if (index >= 0 && index < livros.size()) {
+//            livros.add(index, l);
+//            valor += l.getPreco();
+//            if (l instanceof Impresso) {
+//                ((Impresso) l).atualizarEstoque();
+//            }
+//        }
+//    }
 
-    public void listarLivros() {
-        for (Livro livro : livros) {
-            System.out.println(livro);
-        }
-    }
+//    public void listarLivros() {
+//        for (Livro livro : livros) {
+//            System.out.println(livro);
+//        }
+//    }
 }
 
