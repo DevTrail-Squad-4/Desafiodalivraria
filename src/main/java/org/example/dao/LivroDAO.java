@@ -87,4 +87,26 @@ public class LivroDAO {
             em.close();
         }
     }
+
+    public List<Livro> listarEletronicos() {
+        EntityManager em = JpaUtil.getEntityManager();
+        try {
+            return em.createQuery("SELECT l FROM Livro l WHERE l.tipo = :tipo", Livro.class)
+                     .setParameter("tipo", "eletronico")
+                     .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Livro> listarImpressos() {
+        EntityManager em = JpaUtil.getEntityManager();
+        try {
+            return em.createQuery("SELECT l FROM Livro l WHERE l.tipo = :tipo", Livro.class)
+                     .setParameter("tipo", "impresso")
+                     .getResultList();
+        } finally {
+            em.close();
+        }
+    }
 }
