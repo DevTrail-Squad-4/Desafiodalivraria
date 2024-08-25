@@ -1,32 +1,32 @@
 package org.example.services;
 
+import org.example.dao.LivroDAO;
 import org.example.models.Livro;
 import org.example.models.Impresso;
 import org.example.models.Eletronico;
-import org.example.repository.LivroRepository;
 import java.util.List;
 
 public class LivroService {
 
-    private final LivroRepository livroRepository;
+    private LivroDAO livroDAO;
 
-    public LivroService(LivroRepository livroRepository) {
-        this.livroRepository = livroRepository;
+    public LivroService(LivroDAO livroDAO) {
+        this.livroDAO = livroDAO;
     }
 
     public void cadastrarLivro(Livro livro) {
-        livroRepository.save(livro);
+        livroDAO.salvar(livro);
     }
 
-    public List<Livro> listarLivros() {
-        return livroRepository.findAll();
+    public List<Livro> listarTodosLivros() {
+        return livroDAO.listarTodos();
     }
 
     public List<Impresso> listarLivrosImpressos() {
-        return livroRepository.findImpressos();
+        return livroDAO.findImpressos();
     }
 
     public List<Eletronico> listarLivrosEletronicos() {
-        return livroRepository.findEletronicos();
+        return livroDAO.findEletronicos();
     }
 }
