@@ -1,7 +1,6 @@
 package org.example.controllers;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.example.models.Impresso;
 import org.example.models.Eletronico;
 import java.io.IOException;
@@ -31,7 +30,13 @@ public class LivroControler {
 
         }
 
-        response.sendRedirect("listarLivros.jsp")
+        response.sendRedirect("listarLivros.jsp");
 
+    }
+
+    public void listarLivros(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        List<Livro> livros = LivroService.listarLivros();
+        request.setAttribute("livros", livros);
+        request.getRequestDispatcher("listarLivros.jsp").forward(request, response);
     }
 }

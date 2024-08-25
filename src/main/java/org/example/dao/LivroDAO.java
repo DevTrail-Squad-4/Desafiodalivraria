@@ -1,4 +1,4 @@
-package org.example.dao;
+package org.example.DAO;
 
 import org.example.models.Livro;
 import org.hibernate.Session;

@@ -13,7 +13,7 @@ public class VendaController {
     public void realizarVenda(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String cliente = request.getParameter("cliente");
         int quantidade = Integer.parseInt(request.getParameter("quantidade"));
-        List<Livro> livrosSelecionados = new ArrayList<Livro>();
+        List<Livro> livrosSelecionados = new ArrayList<>();
 
         for (int i = 0; i < quantidade; i++) {
             Long livroId = Long.parseLong(request.getParameter("livroId" + i));
