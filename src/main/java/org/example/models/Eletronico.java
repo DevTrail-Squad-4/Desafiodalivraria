@@ -16,7 +16,7 @@ public class Eletronico extends Livro implements Serializable {
         this.tamanho = 0;
     }
 
-    public Eletronico(String titulo, String autores, String editora, float preco, int tamanho) {
+    public Eletronico(String titulo, String autores, String editora, double preco, int tamanho) {
         super(titulo, autores, editora, preco);
         this.tamanho = tamanho;
     }

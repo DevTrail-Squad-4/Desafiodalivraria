@@ -29,4 +29,8 @@ public class LivroService {
     public List<Eletronico> listarLivrosEletronicos() {
         return livroDAO.listarEletronicos();
     }
+
+    public Livro buscarLivroPorId(long Livroid){
+        return livroDAO.buscarPorId(Livroid);
+    }
 }
