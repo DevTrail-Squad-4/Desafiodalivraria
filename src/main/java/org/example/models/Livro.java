@@ -8,26 +8,26 @@ import java.util.UUID;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Livro implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    protected static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    protected Long id;
 
-    private String titulo;
+    protected String titulo;
 
-    private String autores;
-    private String editora;
-    private float preco;
+    protected String autores;
+    protected String editora;
+    protected double preco;
 
     public Livro() {
         this.titulo = "";
         this.autores = "";
         this.editora = "";
-        this.preco = 0.0F;
+        this.preco = 0.0;
     }
 
-    public Livro(String titulo, String autores, String editora, float preco) {
+    public Livro(String titulo, String autores, String editora, double preco) {
         this.titulo = titulo;
         this.autores = autores;
         this.editora = editora;
@@ -72,11 +72,11 @@ public abstract class Livro implements Serializable {
         this.editora = editora;
     }
 
-    public float getPreco() {
+    public double getPreco() {
         return preco;
     }
 
-    public void setPreco(float preco) {
+    public void setPreco(double preco) {
         this.preco = preco;
     }
 }

@@ -9,12 +9,12 @@ public class Impresso extends Livro implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private float frete;
+    private double frete;
     private int estoque;
 
     public Impresso() {
         super();
-        this.frete = 0.0F;
+        this.frete = 0.0;
         this.estoque = 0;
     }
 
@@ -39,11 +39,11 @@ public class Impresso extends Livro implements Serializable {
         }
     }
 
-    public float getFrete() {
+    public double getFrete() {
         return frete;
     }
 
-    public void setFrete(float frete) {
+    public void setFrete(double frete) {
         this.frete = frete;
     }
 
