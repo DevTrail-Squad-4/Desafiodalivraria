@@ -1,12 +1,17 @@
 package org.example.models;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.UUID;
 
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Livro implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String titulo;
@@ -33,6 +38,14 @@ public abstract class Livro implements Serializable {
     public String toString() {
         return String.format("Título: %s%nAutores: %s%nEditora: %s%nPreço: R$ %.2f",
                 titulo, autores, editora, preco);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitulo() {

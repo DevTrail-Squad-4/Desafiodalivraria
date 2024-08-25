@@ -4,15 +4,12 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.UUID;
 
+@Entity
 public class Eletronico extends Livro implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Long id;
-
     private int tamanho;
-
-
 
     public Eletronico() {
         super();
@@ -29,6 +26,7 @@ public class Eletronico extends Livro implements Serializable {
         return String.format("%s%nTamanho do Arquivo: %d KB",
                 super.toString(), tamanho);
     }
+
 
 
     public int getTamanho() {

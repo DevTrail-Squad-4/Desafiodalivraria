@@ -4,11 +4,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.UUID;
 
+@Entity
 public class Impresso extends Livro implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    private Long id;
 
     private float frete;
     private int estoque;
