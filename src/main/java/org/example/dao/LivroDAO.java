@@ -1,10 +1,13 @@
 package org.example.dao;
 
 import org.example.models.Livro;
+import org.example.models.Impresso;
+import org.example.models.Eletronico;
 import org.example.util.JpaUtil;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class LivroDAO {
@@ -88,23 +91,21 @@ public class LivroDAO {
         }
     }
 
-    public List<Livro> listarEletronicos() {
+    public List<Impresso> listarImpressos() {
         EntityManager em = JpaUtil.getEntityManager();
         try {
-            return em.createQuery("SELECT l FROM Livro l WHERE l.tipo = :tipo", Livro.class)
-                     .setParameter("tipo", "eletronico")
-                     .getResultList();
+            TypedQuery<Impresso> query = em.createQuery("select i from Impresso i", Impresso.class);
+            return query.getResultList();
         } finally {
             em.close();
         }
     }
 
-    public List<Livro> listarImpressos() {
+    public List<Eletronico> listarEletronicos() {
         EntityManager em = JpaUtil.getEntityManager();
         try {
-            return em.createQuery("SELECT l FROM Livro l WHERE l.tipo = :tipo", Livro.class)
-                     .setParameter("tipo", "impresso")
-                     .getResultList();
+            TypedQuery<Eletronico> query = em.createQuery("select e from Eletronico e", Eletronico.class);
+            return query.getResultList();
         } finally {
             em.close();
         }
