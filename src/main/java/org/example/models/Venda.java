@@ -27,9 +27,9 @@ public class Venda implements Serializable {
     private double valor;
 
 
-    public Venda(String cliente) {
+    public Venda(String cliente, List<Livro> livros)  {
         this.numero = ++numVendas;
-        this.livros = new ArrayList<>();
+        this.livros = livros;
         this.cliente = cliente;
         this.valor = 0.0;
     }
