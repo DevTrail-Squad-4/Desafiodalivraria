@@ -10,11 +10,11 @@ public class Main {
 //        Scanner scanner = new Scanner(System.in);
 //
 //        while (true) {
-//            System.out.println("Menu:");
+//            System.out.println("Menu da Livraria Solutis:");
 //            System.out.println("1 - Cadastrar livro");
 //            System.out.println("2 - Realizar uma venda");
 //            System.out.println("3 - Listar livros");
-//            System.out.println("4 - Listar vendas");
+//            System.out.println("4 - Listar Livros vendidos");
 //            System.out.println("5 - Sair");
 //
 //            int opcao = scanner.nextInt();
@@ -34,7 +34,7 @@ public class Main {
 //                    livraria.listarVendas();
 //                    break;
 //                case 5:
-//                    System.out.println("Saindo...");
+//                    System.out.println("Saindo da Livraria...");
 //                    return;
 //                default:
 //                    System.out.println("Opção inválida.");
