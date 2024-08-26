@@ -19,4 +19,8 @@ public class VendaService {
     public List<Venda> listarTodasVendas() {
         return vendaDAO.listarTodos();
     }
+
+    public void deletarLivro(Venda venda) {
+        vendaDAO.deletar(venda);
+}
 }
