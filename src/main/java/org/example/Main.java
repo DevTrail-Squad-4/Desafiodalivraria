@@ -186,6 +186,8 @@ public class Main {
             // Adicionar livro selecionado à lista
             Livro livroSelecionado = livros.get(escolha - 1);
             livrosSelecionados.add(livroSelecionado);
+
+            //deletar livro, isso deve ser mudado
             livroService.deletarLivro(livroSelecionado);
         }
 
