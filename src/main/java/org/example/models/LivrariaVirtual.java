@@ -2,6 +2,8 @@ package org.example.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 @Entity
@@ -19,29 +21,40 @@ public class LivrariaVirtual implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "livraria_id")
-    private Impresso[] impressos;
+    private List<Impresso> impressos;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "livraria_id")
-    private Eletronico[] eletronicos;
+    private List<Eletronico> eletronicos;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "livraria_id")
-    private Venda[] vendas;
+    @OneToMany(mappedBy = "livrariaVirtual", cascade = CascadeType.ALL)
+    @OrderColumn(name = "order_column")
+    private List<Venda> vendas;
     private int numImpressos;
     private int numEletronicos;
     private int numVendas;
 
     // Construtor
     public LivrariaVirtual() {
-        this.impressos = new Impresso[MAX_IMPRESSOS];
-        this.eletronicos = new Eletronico[MAX_ELETRONICOS];
-        this.vendas = new Venda[MAX_VENDAS];
+        this.impressos = new ArrayList<>(MAX_IMPRESSOS);
+        this.eletronicos = new ArrayList<>(MAX_ELETRONICOS);
+        this.vendas = new ArrayList<>();
         this.numImpressos = 0;
         this.numEletronicos = 0;
         this.numVendas = 0;
     }
-    
+
+    // Construtor com parâmetros
+    public LivrariaVirtual(List<Impresso> impressos, List<Eletronico> eletronicos, List<Venda> vendas,
+                           int numImpressos, int numEletronicos, int numVendas) {
+        this.impressos = impressos != null ? impressos : new ArrayList<>(MAX_IMPRESSOS);
+        this.eletronicos = eletronicos != null ? eletronicos : new ArrayList<>(MAX_ELETRONICOS);
+        this.vendas = vendas != null ? vendas : new ArrayList<>();
+        this.numImpressos = numImpressos;
+        this.numEletronicos = numEletronicos;
+        this.numVendas = numVendas;
+    }
+
     //getters setters
 
     public Long getId() {

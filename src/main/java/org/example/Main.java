@@ -1,7 +1,17 @@
+package org.example;
+
+import org.example.dao.LivroDAO;
+import org.example.dao.VendaDAO;
+import org.example.models.Impresso;
+import org.example.services.LivroService;
+import org.example.services.VendaService;
+
 import java.util.Scanner;
 
 public class Main {
     private static final Scanner scanner = new Scanner(System.in);
+    private static final LivroService livroService = new LivroService(new LivroDAO());
+    private static final VendaService vendaService = new VendaService(new VendaDAO());
 
     public static void main(String[] args) {
         while (true) {
@@ -59,6 +69,14 @@ public class Main {
         String autor = scanner.next();
         System.out.print("Digite o preço do livro: ");
         double preco = scanner.nextDouble();
+        System.out.print("Digite o a editora do livro: ");
+        String editora = scanner.next();
+        System.out.print("Digite o frete do livro: ");
+        double frete = scanner.nextDouble();
+        System.out.print("Digite o estoque do livro: ");
+        int estoque = scanner.nextInt();
+        Impresso livro = new Impresso(titulo, autor, editora, preco, frete, estoque);
+        livroService.cadastrarLivro(livro);
         System.out.println("Livro '" + titulo + "' de " + autor + " cadastrado com sucesso por R$" + preco + ".");
     }
 

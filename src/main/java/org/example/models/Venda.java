@@ -23,6 +23,11 @@ public class Venda implements Serializable {
             joinColumns = @JoinColumn(name = "venda_id"),
             inverseJoinColumns = @JoinColumn(name = "livro_id"))
     private List<Livro> livros = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "livraria_id")
+    private LivrariaVirtual livrariaVirtual;
+
     private String cliente;
     private double valor;
 
