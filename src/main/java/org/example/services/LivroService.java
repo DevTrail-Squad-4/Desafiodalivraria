@@ -33,9 +33,14 @@ public class LivroService {
     public Livro buscarLivroPorId(long Livroid){
         return livroDAO.buscarPorId(Livroid);
     }
+            
+    public void livroUpdate(Impresso impresso){
+        if (impresso.getEstoque() == 0){
+            livroDAO.deletar(livro);
 
-    public void deletarLivro(Livro livro){
-        livroDAO.deletar(livro);
+        } else{
+            livroDAO.atualizar(impresso);
+        }
     }
 
 }
