@@ -163,8 +163,15 @@ public class Main {
             // Exibir lista de livros
             System.out.println("Lista de livros " + tipo + ":");
             for (int j = 0; j < livros.size(); j++) {
-                Livro livro = livros.get(j);
-                System.out.println((j + 1) + ". " + livro.getTitulo() + " - " + livro.getPreco());
+                if(livros.get(j) instanceof Impresso){
+                    Impresso livro = (Impresso) livros.get(j);
+                    System.out.println((j + 1) + ". " + livro.getTitulo() + " - " + livro.getPreco() + " - Estoque: " + livro.getEstoque());
+                }else {
+                    Livro livro = livros.get(j);
+                    System.out.println((j + 1) + ". " + livro.getTitulo() + " - " + livro.getPreco());
+                }
+
+
             }
 
             // Solicitar escolha do livro
@@ -177,22 +184,31 @@ public class Main {
             }
 
             // Criar e registrar a venda
+            Livro livroSelecionado = livros.get(escolha - 1);
+            if ("impresso".equalsIgnoreCase(tipo)) {
+                Impresso livroImpresso = (Impresso) livros.get(escolha - 1);
+                // Verificar e atualizar o estoque
+                if (livroImpresso.getEstoque() > 0) {
+                    livroImpresso.setEstoque(livroImpresso.getEstoque() - 1);
+                    livroService.livroUpdate(livroImpresso); // Atualizar o livro no banco de dados
+                } else {
+                    System.out.println("Estoque insuficiente para o livro " + livroSelecionado.getTitulo());
+                    i--; // Decrementar para repetir a iteração atual
+                    continue;
+                }
+            }
+
+            // Adicionar livro selecionado à lista
+            livrosSelecionados.add(livroSelecionado);
+
+            // Registrar a venda
             Venda venda = new Venda(cliente, livrosSelecionados);
             vendaService.realizarVenda(venda);
 
-
             System.out.println("Venda registrada com sucesso!");
-
-            // Adicionar livro selecionado à lista
-            Livro livroSelecionado = livros.get(escolha - 1);
-            livrosSelecionados.add(livroSelecionado);
-
-            //deletar livro, isso deve ser mudado
-            livroService.deletarLivro(livroSelecionado);
         }
-
-
     }
+
 
 
     private static void listarLivros() {
