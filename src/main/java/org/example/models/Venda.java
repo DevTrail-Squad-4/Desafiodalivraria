@@ -19,15 +19,9 @@ public class Venda implements Serializable {
     private int numero;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "venda_livro",
-            joinColumns = @JoinColumn(name = "venda_id"),
-            inverseJoinColumns = @JoinColumn(name = "livro_id")
-    )
     private List<Livro> livros;
 
     @ManyToOne
-    @JoinColumn(name = "livraria_id")
     private LivrariaVirtual livrariaVirtual;
 
     private String cliente;

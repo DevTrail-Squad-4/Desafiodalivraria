@@ -23,4 +23,7 @@ public class VendaService {
     public void deletarVenda(Venda venda) {
         vendaDAO.deletar(venda);
     }
+
+    public void deletarLivro(Venda venda) {
+    }
 }
