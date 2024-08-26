@@ -18,11 +18,13 @@ public class Venda implements Serializable {
     private static int numVendas = 0;
     private int numero;
 
-    @ManyToMany
-    @JoinTable(name = "venda_livro",
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "venda_livro",
             joinColumns = @JoinColumn(name = "venda_id"),
-            inverseJoinColumns = @JoinColumn(name = "livro_id"))
-    private List<Livro> livros = new ArrayList<>();
+            inverseJoinColumns = @JoinColumn(name = "livro_id")
+    )
+    private List<Livro> livros;
 
     @ManyToOne
     @JoinColumn(name = "livraria_id")
@@ -31,6 +33,9 @@ public class Venda implements Serializable {
     private String cliente;
     private double valor;
 
+    // Construtor padrão
+    public Venda() {
+    }
 
     public Venda(String cliente, List<Livro> livros) {
         this.numero = ++numVendas;
@@ -42,11 +47,14 @@ public class Venda implements Serializable {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(String.format("Venda #%d%nCliente: %s%nValor Total: R$ %.2f%n",
-                numero, cliente, valor));
-        sb.append("Livros na Venda:\n");
-        for (Livro livro : livros) {
-            sb.append(livro.toString()).append("\n");
+        sb.append("Venda ID: ").append(id).append(", Cliente: ").append(cliente).append("\n");
+        sb.append("Livros:\n");
+        if (livros != null && !livros.isEmpty()) {
+            for (Livro livro : livros) {
+                sb.append(livro.getTitulo()).append(" - ").append(livro.getPreco()).append("\n");
+            }
+        } else {
+            sb.append("Nenhum livro associado.\n");
         }
         return sb.toString();
     }
@@ -62,25 +70,15 @@ public class Venda implements Serializable {
     public int getNumero() { return numero; }
     public String getCliente() { return cliente; }
     public void setCliente(String cliente) { this.cliente = cliente; }
+    public List<Livro> getLivros() {
+        return livros;
+    }
 
+    public void setLivros(List<Livro> livros) {
+        this.livros = livros;
+    }
     public double getValor() { return valor; }
     public void setValor(double valor) { this.valor = valor; }
 
-//    // Métodos
-//    public void addLivro(Livro l, int index) {
-//        if (index >= 0 && index < livros.size()) {
-//            livros.add(index, l);
-//            valor += l.getPreco();
-//            if (l instanceof Impresso) {
-//                ((Impresso) l).atualizarEstoque();
-//            }
-//        }
-//    }
-
-//    public void listarLivros() {
-//        for (Livro livro : livros) {
-//            System.out.println(livro);
-//        }
-//    }
 }
 

@@ -199,14 +199,22 @@ public class Main {
 
     private static void listarVendas() {
         System.out.println("Opção 'Listar vendas' selecionada.");
+
+        // Listar todas as vendas
         List<Venda> vendas = vendaService.listarTodasVendas();
+
         if (vendas.isEmpty()) {
             System.out.println("Nenhuma venda realizada.");
         } else {
             System.out.println("Vendas realizadas:");
             for (Venda venda : vendas) {
+                // Força a inicialização da coleção 'livros'
+                if (venda.getLivros() != null) {
+                    venda.getLivros().size();
+                }
                 System.out.println(venda);
             }
         }
-}
+    }
+
 }
