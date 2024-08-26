@@ -2,10 +2,14 @@ package org.example;
 
 import org.example.dao.LivroDAO;
 import org.example.dao.VendaDAO;
+import org.example.models.Eletronico;
 import org.example.models.Impresso;
+import org.example.models.Livro;
 import org.example.services.LivroService;
 import org.example.services.VendaService;
 
+import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -62,23 +66,61 @@ public class Main {
 
     private static void cadastrarLivro() {
         System.out.println("Opção 'Cadastrar livro' selecionada.");
-        // Implementar a lógica de cadastro de livro aqui
+
+        int tipoLivro = 0;
+        boolean entradaValida = false;
+
+        while (!entradaValida) {
+            System.out.println("Escolha o tipo de livro:");
+            System.out.println("1. Livro Impresso");
+            System.out.println("2. Livro Eletrônico");
+
+            try {
+                tipoLivro = scanner.nextInt();
+                scanner.nextLine(); // Limpa a linha de entrada
+                if (tipoLivro == 1 || tipoLivro == 2) {
+                    entradaValida = true;
+                } else {
+                    System.out.println("Opção inválida. Por favor, selecione 1 para Livro Impresso ou 2 para Livro Eletrônico.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada inválida. Por favor, insira um número.");
+                scanner.nextLine(); // Limpa a linha de entrada
+            }
+        }
+
+        // Coletar detalhes do livro
         System.out.print("Digite o título do livro: ");
-        String titulo = scanner.next();
+        String titulo = scanner.nextLine();
         System.out.print("Digite o autor do livro: ");
-        String autor = scanner.next();
+        String autor = scanner.nextLine();
         System.out.print("Digite o preço do livro: ");
         double preco = scanner.nextDouble();
-        System.out.print("Digite o a editora do livro: ");
-        String editora = scanner.next();
-        System.out.print("Digite o frete do livro: ");
-        double frete = scanner.nextDouble();
-        System.out.print("Digite o estoque do livro: ");
-        int estoque = scanner.nextInt();
-        Impresso livro = new Impresso(titulo, autor, editora, preco, frete, estoque);
-        livroService.cadastrarLivro(livro);
-        System.out.println("Livro '" + titulo + "' de " + autor + " cadastrado com sucesso por R$" + preco + ".");
+        scanner.nextLine(); // Limpa a linha de entrada
+        System.out.print("Digite a editora do livro: ");
+        String editora = scanner.nextLine();
+
+        if (tipoLivro == 1) {
+            // Livro Impresso
+            System.out.print("Digite o frete do livro: ");
+            double frete = scanner.nextDouble();
+            System.out.print("Digite o estoque do livro: ");
+            int estoque = scanner.nextInt();
+            scanner.nextLine(); // Limpa a linha de entrada
+            Impresso livro = new Impresso(titulo, autor, editora, preco, frete, estoque);
+            livroService.cadastrarLivro(livro);
+            System.out.println("Livro Impresso '" + titulo + "' de " + autor + " cadastrado com sucesso por R$" + preco + ".");
+        } else {
+            // Livro Eletrônico
+            System.out.print("Digite o tamanho do arquivo (em MB): ");
+            int tamanhoArquivo = scanner.nextInt();
+            scanner.nextLine(); // Limpa a linha de entrada
+            Eletronico livro = new Eletronico(titulo, autor, editora, preco, tamanhoArquivo);
+            livroService.cadastrarLivro(livro);
+            System.out.println("Livro Eletrônico '" + titulo + "' de " + autor + " cadastrado com sucesso por R$" + preco + ".");
+        }
     }
+
 
     private static void realizarVenda() {
         System.out.println("Opção 'Realizar venda' selecionada.");
@@ -93,6 +135,8 @@ public class Main {
     private static void listarLivros() {
         System.out.println("Opção 'Listar livros' selecionada.");
         // Implementar a lógica de listar livros aqui
+        List<Livro> livros = livroService.listarTodosLivros();
+        System.out.println(livros);
         System.out.println("Listando todos os livros cadastrados...");
     }
 
