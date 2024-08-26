@@ -33,4 +33,9 @@ public class LivroService {
     public Livro buscarLivroPorId(long Livroid){
         return livroDAO.buscarPorId(Livroid);
     }
+
+    public void deletarLivro(Livro livro){
+        livroDAO.deletar(livro);
+    }
+
 }

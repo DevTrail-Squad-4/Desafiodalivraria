@@ -20,7 +20,7 @@ public class VendaService {
         return vendaDAO.listarTodos();
     }
 
-    public void deletarLivro(Venda venda) {
+    public void deletarVenda(Venda venda) {
         vendaDAO.deletar(venda);
-}
+    }
 }
