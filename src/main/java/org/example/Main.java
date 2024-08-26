@@ -5,6 +5,7 @@ import org.example.dao.VendaDAO;
 import org.example.models.Eletronico;
 import org.example.models.Impresso;
 import org.example.models.Livro;
+import org.example.models.Venda;
 import org.example.services.LivroService;
 import org.example.services.VendaService;
 
@@ -142,7 +143,14 @@ public class Main {
 
     private static void listarVendas() {
         System.out.println("Opção 'Listar vendas' selecionada.");
-        // Implementar a lógica de listar vendas aqui
-        System.out.println("Listando todas as vendas realizadas...");
+        List<Venda> vendas = vendaService.listarTodasVendas();
+        if (vendas.isEmpty()) {
+            System.out.println("Nenhuma venda realizada.");
+        } else {
+            System.out.println("Vendas realizadas:");
+            for (Venda venda : vendas) {
+                System.out.println(venda);
+            }
+        }
     }
 }
