@@ -36,7 +36,7 @@ public class LivroService {
             
     public void livroUpdate(Impresso impresso){
         if (impresso.getEstoque() == 0){
-            livroDAO.deletar(livro);
+            livroDAO.deletar(impresso);
 
         } else{
             livroDAO.atualizar(impresso);
