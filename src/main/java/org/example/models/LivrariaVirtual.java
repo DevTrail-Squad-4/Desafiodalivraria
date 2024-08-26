@@ -20,12 +20,15 @@ public class LivrariaVirtual implements Serializable {
     private static final int MAX_VENDAS = 50;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "livraria_id")
     private List<Impresso> impressos;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "livraria_id")
     private List<Eletronico> eletronicos;
 
     @OneToMany(mappedBy = "livrariaVirtual", cascade = CascadeType.ALL)
+    @OrderColumn(name = "order_column")
     private List<Venda> vendas;
     private int numImpressos;
     private int numEletronicos;

@@ -176,18 +176,20 @@ public class Main {
                 continue;
             }
 
+            // Criar e registrar a venda
+            Venda venda = new Venda(cliente, livrosSelecionados);
+            vendaService.realizarVenda(venda);
+
+
+            System.out.println("Venda registrada com sucesso!");
+
             // Adicionar livro selecionado à lista
             Livro livroSelecionado = livros.get(escolha - 1);
             livrosSelecionados.add(livroSelecionado);
             livroService.deletarLivro(livroSelecionado);
         }
 
-        // Criar e registrar a venda
-        Venda venda = new Venda(cliente, livrosSelecionados);
-        vendaService.realizarVenda(venda);
 
-
-        System.out.println("Venda registrada com sucesso!");
     }
 
 
