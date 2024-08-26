@@ -32,7 +32,7 @@ public class Venda implements Serializable {
     private double valor;
 
 
-    public Venda(String cliente, List<Livro> livros)  {
+    public Venda(String cliente, List<Livro> livros) {
         this.numero = ++numVendas;
         this.livros = livros;
         this.cliente = cliente;

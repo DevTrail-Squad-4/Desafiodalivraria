@@ -9,6 +9,7 @@ import org.example.models.Venda;
 import org.example.services.LivroService;
 import org.example.services.VendaService;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -125,13 +126,68 @@ public class Main {
 
     private static void realizarVenda() {
         System.out.println("Opção 'Realizar venda' selecionada.");
-        // Implementar a lógica de realizar a venda aqui
-        System.out.print("Digite o ID do livro para venda: ");
-        int livroId = scanner.nextInt();
-        System.out.print("Digite a quantidade vendida: ");
+
+        // Solicitar nome do cliente
+        System.out.print("Digite o nome do cliente: ");
+        String cliente = scanner.next();
+
+        // Solicitar quantidade de livros
+        System.out.print("Digite a quantidade de livros que deseja comprar: ");
         int quantidade = scanner.nextInt();
-        System.out.println("Venda registrada: Livro ID " + livroId + ", Quantidade " + quantidade + ".");
+
+        // Inicializar a lista de livros selecionados
+        List<Livro> livrosSelecionados = new ArrayList<>();
+
+        // Iterar sobre a quantidade de livros
+        for (int i = 0; i < quantidade; i++) {
+            // Solicitar tipo de livro
+            System.out.print("Digite o tipo de livro (impresso ou eletrônico) para o livro " + (i + 1) + ": ");
+            String tipo = scanner.next();
+
+            // Inicializar a lista de livros
+            List<Livro> livros = new ArrayList<>();
+
+            // Listar livros de acordo com o tipo escolhido
+            if ("impresso".equalsIgnoreCase(tipo)) {
+                List<Impresso> impressos = livroService.listarLivrosImpressos();
+                livros.addAll(impressos); // Converter para List<Livro>
+            } else if ("eletronico".equalsIgnoreCase(tipo)) {
+                List<Eletronico> eletronicos = livroService.listarLivrosEletronicos();
+                livros.addAll(eletronicos); // Converter para List<Livro>
+            } else {
+                System.out.println("Tipo de livro inválido. Tente novamente.");
+                i--; // Decrementar para repetir a iteração atual
+                continue;
+            }
+
+            // Exibir lista de livros
+            System.out.println("Lista de livros " + tipo + ":");
+            for (int j = 0; j < livros.size(); j++) {
+                Livro livro = livros.get(j);
+                System.out.println((j + 1) + ". " + livro.getTitulo() + " - " + livro.getPreco());
+            }
+
+            // Solicitar escolha do livro
+            System.out.print("Escolha o número do livro para o livro " + (i + 1) + ": ");
+            int escolha = scanner.nextInt();
+            if (escolha < 1 || escolha > livros.size()) {
+                System.out.println("Escolha inválida. Tente novamente.");
+                i--; // Decrementar para repetir a iteração atual
+                continue;
+            }
+
+            // Adicionar livro selecionado à lista
+            Livro livroSelecionado = livros.get(escolha - 1);
+            livrosSelecionados.add(livroSelecionado);
+        }
+
+        // Criar e registrar a venda
+        Venda venda = new Venda(cliente, livrosSelecionados);
+        vendaService.realizarVenda(venda);
+
+        System.out.println("Venda registrada com sucesso!");
     }
+
 
     private static void listarLivros() {
         System.out.println("Opção 'Listar livros' selecionada.");
@@ -152,5 +208,5 @@ public class Main {
                 System.out.println(venda);
             }
         }
-    }
+}
 }
