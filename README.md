@@ -5,7 +5,10 @@ Thiago Gentil
 Gabriel Silva
 Rubens Costa
 
-##Diagrama de Classe```mermaid
+
+##Diagrama de Classe
+
+```mermaid
 classDiagram
   class LivrariaVirtual {
     - int MAX_IMPRESSOS = 10
@@ -62,12 +65,7 @@ classDiagram
 
 
 
-Squad 4:
-Daniel Naiff
-Hugo Gabriel
-Thiago Gentil
-Gabriel Silva
-Rubens Costa
+
 
 
 ```
