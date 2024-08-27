@@ -156,8 +156,10 @@ public class Main {
                 List<Impresso> impressos = livroService.listarLivrosImpressos();
                 livros.addAll(impressos); // Converter para List<Livro>
             } else if ("eletronico".equalsIgnoreCase(tipo)) {
+
                 List<Eletronico> eletronicos = livroService.listarLivrosEletronicos();
                 livros.addAll(eletronicos); // Converter para List<Livro>
+
             } else {
                 System.out.println("Tipo de livro inválido. Tente novamente.");
                 i--; // Decrementar para repetir a iteração atual
@@ -208,6 +210,14 @@ public class Main {
                     i--; // Decrementar para repetir a iteração atual
                     continue;
                 }
+            }else if("eletronico".equalsIgnoreCase(tipo)){
+                livrosSelecionados.add(livroSelecionado);
+
+                // Registrar a venda
+                Venda venda = new Venda(cliente, livrosSelecionados);
+                vendaService.realizarVenda(venda);
+
+                System.out.println("Venda registrada com sucesso!");
             }
 
 
