@@ -88,4 +88,12 @@ public class LivrariaVirtual implements Serializable {
     public void setNumVendas(int numVendas) {
         this.numVendas = numVendas;
     }
+    public static int getMaxImpressos() {
+        return MAX_IMPRESSOS;
+    }
+
+    public static int getMaxEletronicos() {
+        return MAX_ELETRONICOS;
+    }
+
 }

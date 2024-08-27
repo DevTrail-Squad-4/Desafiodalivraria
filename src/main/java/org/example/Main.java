@@ -16,14 +16,16 @@ public class Main {
     private static final LivroService livroService = new LivroService(new LivroDAO());
     private static final VendaService vendaService = new VendaService(new VendaDAO());
 
+
     public static void main(String[] args) {
+        LivrariaVirtual livrariaVirtual = new LivrariaVirtual();
         while (true) {
             exibirMenu();
             int opcao = lerOpcao();
 
             switch (opcao) {
                 case 1:
-                    cadastrarLivro();
+                    cadastrarLivro(livrariaVirtual);
                     break;
                 case 2:
                     realizarVenda();
