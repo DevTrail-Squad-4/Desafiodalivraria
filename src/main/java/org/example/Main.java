@@ -191,6 +191,14 @@ public class Main {
                 Impresso livroImpresso = (Impresso) livros.get(escolha - 1);
                 // Verificar e atualizar o estoque
                 if (livroImpresso.getEstoque() > 0) {
+                    // Adicionar livro selecionado à lista
+                    livrosSelecionados.add(livroSelecionado);
+
+                    // Registrar a venda
+                    Venda venda = new Venda(cliente, livrosSelecionados);
+                    vendaService.realizarVenda(venda);
+
+                    System.out.println("Venda registrada com sucesso!");
                     livroImpresso.setEstoque(livroImpresso.getEstoque() - 1);
                     livroService.livroUpdate(livroImpresso); // Atualizar o livro no banco de dados
                 } else {
@@ -200,14 +208,7 @@ public class Main {
                 }
             }
 
-            // Adicionar livro selecionado à lista
-            livrosSelecionados.add(livroSelecionado);
 
-            // Registrar a venda
-            Venda venda = new Venda(cliente, livrosSelecionados);
-            vendaService.realizarVenda(venda);
-
-            System.out.println("Venda registrada com sucesso!");
         }
     }
 
