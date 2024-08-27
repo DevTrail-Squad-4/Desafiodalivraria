@@ -78,14 +78,15 @@ public class Main {
             System.out.println("Escolha o tipo de livro:");
             System.out.println("1. Livro Impresso");
             System.out.println("2. Livro Eletrônico");
+            System.out.println("3. Ambos");
 
             try {
                 tipoLivro = scanner.nextInt();
                 scanner.nextLine(); // Limpa a linha de entrada
-                if (tipoLivro == 1 || tipoLivro == 2) {
+                if (tipoLivro == 1 || tipoLivro == 2 || tipoLivro == 3) {
                     entradaValida = true;
                 } else {
-                    System.out.println("Opção inválida. Por favor, selecione 1 para Livro Impresso ou 2 para Livro Eletrônico.");
+                    System.out.println("Opção inválida. Por favor, selecione 1 para Livro Impresso, 2 para Livro Eletrônico, ou 3 para Ambos.");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Entrada inválida. Por favor, insira um número.");
@@ -104,27 +105,28 @@ public class Main {
         System.out.print("Digite a editora do livro: ");
         String editora = scanner.nextLine();
 
-        if (tipoLivro == 1) {
+        if (tipoLivro == 1 || tipoLivro == 3) {
             // Livro Impresso
             System.out.print("Digite o frete do livro: ");
             double frete = scanner.nextDouble();
             System.out.print("Digite o estoque do livro: ");
             int estoque = scanner.nextInt();
             scanner.nextLine(); // Limpa a linha de entrada
-            Impresso livro = new Impresso(titulo, autor, editora, preco, frete, estoque);
-            livroService.cadastrarLivro(livro);
+            Impresso livroImpresso = new Impresso(titulo, autor, editora, preco, frete, estoque);
+            livroService.cadastrarLivro(livroImpresso);
             System.out.println("Livro Impresso '" + titulo + "' de " + autor + " cadastrado com sucesso por R$" + preco + ".");
-        } else {
+        }
+
+        if (tipoLivro == 2 || tipoLivro == 3) {
             // Livro Eletrônico
             System.out.print("Digite o tamanho do arquivo (em MB): ");
             int tamanhoArquivo = scanner.nextInt();
             scanner.nextLine(); // Limpa a linha de entrada
-            Eletronico livro = new Eletronico(titulo, autor, editora, preco, tamanhoArquivo);
-            livroService.cadastrarLivro(livro);
+            Eletronico livroEletronico = new Eletronico(titulo, autor, editora, preco, tamanhoArquivo);
+            livroService.cadastrarLivro(livroEletronico);
             System.out.println("Livro Eletrônico '" + titulo + "' de " + autor + " cadastrado com sucesso por R$" + preco + ".");
         }
     }
-
 
     private static void realizarVenda() {
         System.out.println("Opção 'Realizar venda' selecionada.");
@@ -211,8 +213,6 @@ public class Main {
 
         }
     }
-
-
 
     private static void listarLivros() {
         System.out.println("Opção 'Listar livros' selecionada.");
