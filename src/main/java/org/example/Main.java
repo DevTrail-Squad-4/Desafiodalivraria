@@ -47,7 +47,7 @@ public class Main {
         }
     }
 
-    private static void exibirMenu() {
+    public static void exibirMenu() {
         System.out.println(" \n--Bem vindo a Livraria-- ");
         System.out.println("*** Menu Principal ***");
         System.out.println();
