@@ -57,4 +57,12 @@ classDiagram
 
 
 
+Squad 4:
+Daniel Naiff
+Hugo Gabriel
+Thiago Gentil
+Gabriel Silva
+Rubens Costa
+
+
 ```
