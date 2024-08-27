@@ -180,6 +180,7 @@ public class Main {
                 livros.addAll(impressos);
                 if (livros.isEmpty()){
                     System.out.println("Não há livros nessa sessão");
+                    System.out.println("Redirecionando pro Menu");
                     return;
                 } // Converter para List<Livro>
             } else if ("eletronico".equalsIgnoreCase(tipo)) {
@@ -188,6 +189,7 @@ public class Main {
                 livros.addAll(eletronicos); 
                 if (livros.isEmpty()){
                     System.out.println("Não livros nessa sessão");
+                    System.out.println("Redirecionando pro Menu");
                     return;
                 } 
                 // Converter para List<Livro>
