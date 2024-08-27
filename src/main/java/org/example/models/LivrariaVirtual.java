@@ -88,4 +88,35 @@ public class LivrariaVirtual implements Serializable {
     public void setNumVendas(int numVendas) {
         this.numVendas = numVendas;
     }
+    public static int getMaxImpressos() {
+        return MAX_IMPRESSOS;
+    }
+
+    public static int getMaxEletronicos() {
+        return MAX_ELETRONICOS;
+    }
+
+    public List<Impresso> getImpressos() {
+        return impressos;
+    }
+
+    public void setImpressos(List<Impresso> impressos) {
+        this.impressos = impressos;
+    }
+
+    public List<Eletronico> getEletronicos() {
+        return eletronicos;
+    }
+
+    public void setEletronicos(List<Eletronico> eletronicos) {
+        this.eletronicos = eletronicos;
+    }
+
+    public List<Venda> getVendas() {
+        return vendas;
+    }
+
+    public void setVendas(List<Venda> vendas) {
+        this.vendas = vendas;
+    }
 }
