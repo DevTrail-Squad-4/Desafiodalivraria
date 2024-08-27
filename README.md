@@ -1,6 +1,11 @@
-##Diagrama de Classe
+Squad 4:
+Daniel Naiff
+Hugo Gabriel
+Thiago Gentil
+Gabriel Silva
+Rubens Costa
 
-```mermaid
+##Diagrama de Classe```mermaid
 classDiagram
   class LivrariaVirtual {
     - int MAX_IMPRESSOS = 10
