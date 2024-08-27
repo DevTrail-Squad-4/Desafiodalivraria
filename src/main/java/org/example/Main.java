@@ -38,7 +38,7 @@ public class Main {
                     listarVendas();
                     break;
                 case 5:
-                    System.out.println("Saindo do programa...");
+                    System.out.println("Saindo da Livraria...");
                     scanner.close();
                     return;
                 default:
@@ -48,12 +48,14 @@ public class Main {
     }
 
     private static void exibirMenu() {
-        System.out.println("\n*** Menu Principal ***");
-        System.out.println("1. Cadastrar livro");
-        System.out.println("2. Realizar venda");
-        System.out.println("3. Listar livros");
-        System.out.println("4. Listar vendas");
-        System.out.println("5. Sair");
+        System.out.println(" \n--Bem vindo a Livraria-- ");
+        System.out.println("*** Menu Principal ***");
+        System.out.println();
+        System.out.println("1 -> Cadastrar livro:");
+        System.out.println("2 -> Realizar venda:");
+        System.out.println("3 -> Listar livros:");
+        System.out.println("4 -> Listar vendas:");
+        System.out.println("5 -> Sair:");
     }
 
     private static int lerOpcao() {
@@ -216,7 +218,7 @@ public class Main {
         // Implementar a lógica de listar livros aqui
         List<Livro> livros = livroService.listarTodosLivros();
         System.out.println(livros);
-        System.out.println("Listando todos os livros cadastrados...");
+        System.out.println("Lista de todos os livros cadastrados...");
     }
 
     private static void listarVendas() {
