@@ -95,14 +95,14 @@ public class Main {
 
         // Verificar se há espaço para mais livros impressos e/ou eletrônicos
         if (tipoLivro == 1 || tipoLivro == 3) {
-            if (livraria.getNumImpressos() >= LivrariaVirtual.MAX_IMPRESSOS) {
+            if (livraria.getNumImpressos() >= LivrariaVirtual.getMaxImpressos()) {
                 System.out.println("Limite de livros impressos atingido. Não é possível cadastrar mais livros impressos.");
                 tipoLivro = (tipoLivro == 3) ? 2 : 0; // Se a opção era "Ambos", continuar com o livro eletrônico. Se era "Impresso", cancelar.
             }
         }
 
         if (tipoLivro == 2 || tipoLivro == 3) {
-            if (livraria.getNumEletronicos() >= LivrariaVirtual.MAX_ELETRONICOS) {
+            if (livraria.getNumEletronicos() >= LivrariaVirtual.getMaxEletronicos()) {
                 System.out.println("Limite de livros eletrônicos atingido. Não é possível cadastrar mais livros eletrônicos.");
                 tipoLivro = (tipoLivro == 3) ? 1 : 0; // Se a opção era "Ambos", continuar com o livro impresso. Se era "Eletrônico", cancelar.
             }
