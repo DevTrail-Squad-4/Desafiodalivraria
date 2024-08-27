@@ -1,9 +1,9 @@
-Squad 4:  ´<br>´
-Daniel Naiff  ´<br>´ 
-Hugo Gabriel   ´<br>´
-Thiago Gentil   ´<br>´
-Gabriel Silva   ´<br>´
-Rubens Costa   ´<br>´
+Squad 4:  <br>
+Daniel Naiff  <br> 
+Hugo Gabriel   <br>
+Thiago Gentil   <br>
+Gabriel Silva   <br>
+Rubens Costa   <br>
 
 
 ##Diagrama de Classe
