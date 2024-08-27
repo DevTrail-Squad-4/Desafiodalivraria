@@ -177,11 +177,20 @@ public class Main {
             // Listar livros de acordo com o tipo escolhido
             if ("impresso".equalsIgnoreCase(tipo)) {
                 List<Impresso> impressos = livroService.listarLivrosImpressos();
-                livros.addAll(impressos); // Converter para List<Livro>
+                livros.addAll(impressos);
+                if (livros.isEmpty()){
+                    System.out.println("Não há livros nessa sessão");
+                    return;
+                } // Converter para List<Livro>
             } else if ("eletronico".equalsIgnoreCase(tipo)) {
 
                 List<Eletronico> eletronicos = livroService.listarLivrosEletronicos();
-                livros.addAll(eletronicos); // Converter para List<Livro>
+                livros.addAll(eletronicos); 
+                if (livros.isEmpty()){
+                    System.out.println("Não livros nessa sessão");
+                    return;
+                } 
+                // Converter para List<Livro>
 
             } else {
                 System.out.println("Tipo de livro inválido. Tente novamente.");

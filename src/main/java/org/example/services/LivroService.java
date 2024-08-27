@@ -23,6 +23,7 @@ public class LivroService {
     }
 
     public List<Impresso> listarLivrosImpressos() {
+        
         return livroDAO.listarImpressos();
     }
 
