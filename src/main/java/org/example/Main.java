@@ -119,7 +119,7 @@ public class Main {
 
         if (tipoLivro == 2 || tipoLivro == 3) {
             // Livro Eletrônico
-            System.out.print("Digite o tamanho do arquivo (em MB): ");
+            System.out.print("Digite o tamanho do arquivo (em KB): ");
             int tamanhoArquivo = scanner.nextInt();
             scanner.nextLine(); // Limpa a linha de entrada
             Eletronico livroEletronico = new Eletronico(titulo, autor, editora, preco, tamanhoArquivo);
