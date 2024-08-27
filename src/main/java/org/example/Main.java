@@ -15,7 +15,9 @@ public class Main {
     private static final Scanner scanner = new Scanner(System.in);
     private static final LivroService livroService = new LivroService(new LivroDAO());
     private static final VendaService vendaService = new VendaService(new VendaDAO());
-
+    private static final int MAX_IMPRESSOS = 10;
+    private static final int MAX_ELETRONICOS = 20;
+    private static final int MAX_VENDAS = 50;
 
     public static void main(String[] args) {
         LivrariaVirtual livrariaVirtual = new LivrariaVirtual();
@@ -25,7 +27,7 @@ public class Main {
 
             switch (opcao) {
                 case 1:
-                    cadastrarLivro(livrariaVirtual);
+                    cadastrarLivro();
                     break;
                 case 2:
                     realizarVenda();
@@ -67,7 +69,8 @@ public class Main {
         return scanner.nextInt();
     }
 
-    private static void cadastrarLivro(LivrariaVirtual livraria) {
+    private static void cadastrarLivro() {
+        LivrariaVirtual livraria = new LivrariaVirtual();
         System.out.println("Opção 'Cadastrar livro' selecionada.");
 
         int tipoLivro = 0;
@@ -95,14 +98,14 @@ public class Main {
 
         // Verificar se há espaço para mais livros impressos e/ou eletrônicos
         if (tipoLivro == 1 || tipoLivro == 3) {
-            if (livraria.getNumImpressos() >= LivrariaVirtual.getMaxImpressos()) {
+            if (livraria.getNumImpressos() >= MAX_IMPRESSOS ) {
                 System.out.println("Limite de livros impressos atingido. Não é possível cadastrar mais livros impressos.");
                 tipoLivro = (tipoLivro == 3) ? 2 : 0; // Se a opção era "Ambos", continuar com o livro eletrônico. Se era "Impresso", cancelar.
             }
         }
 
         if (tipoLivro == 2 || tipoLivro == 3) {
-            if (livraria.getNumEletronicos() >= LivrariaVirtual.getMaxEletronicos()) {
+            if (livraria.getNumEletronicos() >= MAX_ELETRONICOS) {
                 System.out.println("Limite de livros eletrônicos atingido. Não é possível cadastrar mais livros eletrônicos.");
                 tipoLivro = (tipoLivro == 3) ? 1 : 0; // Se a opção era "Ambos", continuar com o livro impresso. Se era "Eletrônico", cancelar.
             }
@@ -152,82 +155,99 @@ public class Main {
 
 
     private static void realizarVenda() {
-        System.out.println("Opção 'Realizar venda' selecionada.");
+        LivrariaVirtual livraria = new LivrariaVirtual();
+        if(livraria.getNumVendas() < MAX_VENDAS){
+            System.out.println("Opção 'Realizar venda' selecionada.");
 
-        // Solicitar nome do cliente
-        System.out.print("Digite o nome do cliente: ");
-        String cliente = scanner.next();
+            // Solicitar nome do cliente
+            System.out.print("Digite o nome do cliente: ");
+            String cliente = scanner.next();
 
-        // Solicitar quantidade de livros
-        System.out.print("Digite a quantidade de livros que deseja comprar: ");
-        int quantidade = scanner.nextInt();
+            // Solicitar quantidade de livros
+            System.out.print("Digite a quantidade de livros que deseja comprar: ");
+            int quantidade = scanner.nextInt();
 
-        // Inicializar a lista de livros selecionados
-        List<Livro> livrosSelecionados = new ArrayList<>();
+            // Inicializar a lista de livros selecionados
+            List<Livro> livrosSelecionados = new ArrayList<>();
 
-        // Iterar sobre a quantidade de livros
-        for (int i = 0; i < quantidade; i++) {
-            // Solicitar tipo de livro
-            System.out.print("Digite o tipo de livro (impresso ou eletrônico) para o livro " + (i + 1) + ": ");
-            String tipo = scanner.next();
+            // Iterar sobre a quantidade de livros
+            for (int i = 0; i < quantidade; i++) {
+                // Solicitar tipo de livro
+                System.out.print("Digite o tipo de livro (impresso ou eletrônico) para o livro " + (i + 1) + ": ");
+                String tipo = scanner.next();
 
-            // Inicializar a lista de livros
-            List<Livro> livros = new ArrayList<>();
+                // Inicializar a lista de livros
+                List<Livro> livros = new ArrayList<>();
 
-            // Listar livros de acordo com o tipo escolhido
-            if ("impresso".equalsIgnoreCase(tipo)) {
-                List<Impresso> impressos = livroService.listarLivrosImpressos();
-                livros.addAll(impressos);
-                if (livros.isEmpty()){
-                    System.out.println("Não há livros nessa sessão");
-                    return;
-                } // Converter para List<Livro>
-            } else if ("eletronico".equalsIgnoreCase(tipo)) {
+                // Listar livros de acordo com o tipo escolhido
+                if ("impresso".equalsIgnoreCase(tipo)) {
+                    List<Impresso> impressos = livroService.listarLivrosImpressos();
+                    livros.addAll(impressos);
+                    if (livros.isEmpty()){
+                        System.out.println("Não há livros nessa sessão");
+                        return;
+                    } // Converter para List<Livro>
+                } else if ("eletronico".equalsIgnoreCase(tipo)) {
 
-                List<Eletronico> eletronicos = livroService.listarLivrosEletronicos();
-                livros.addAll(eletronicos); 
-                if (livros.isEmpty()){
-                    System.out.println("Não livros nessa sessão");
-                    return;
-                } 
-                // Converter para List<Livro>
+                    List<Eletronico> eletronicos = livroService.listarLivrosEletronicos();
+                    livros.addAll(eletronicos);
+                    if (livros.isEmpty()){
+                        System.out.println("Não livros nessa sessão");
+                        return;
+                    }
+                    // Converter para List<Livro>
 
-            } else {
-                System.out.println("Tipo de livro inválido. Tente novamente.");
-                i--; // Decrementar para repetir a iteração atual
-                continue;
-            }
-
-            // Exibir lista de livros
-            System.out.println("Lista de livros " + tipo + ":");
-            for (int j = 0; j < livros.size(); j++) {
-                if(livros.get(j) instanceof Impresso){
-                    Impresso livro = (Impresso) livros.get(j);
-                    System.out.println((j + 1) + ". " + livro.getTitulo() + " - " + livro.getPreco() + " - Estoque: " + livro.getEstoque());
-                }else {
-                    Livro livro = livros.get(j);
-                    System.out.println((j + 1) + ". " + livro.getTitulo() + " - " + livro.getPreco());
+                } else {
+                    System.out.println("Tipo de livro inválido. Tente novamente.");
+                    i--; // Decrementar para repetir a iteração atual
+                    continue;
                 }
 
+                // Exibir lista de livros
+                System.out.println("Lista de livros " + tipo + ":");
+                for (int j = 0; j < livros.size(); j++) {
+                    if(livros.get(j) instanceof Impresso){
+                        Impresso livro = (Impresso) livros.get(j);
+                        System.out.println((j + 1) + ". " + livro.getTitulo() + " - " + livro.getPreco() + " - Estoque: " + livro.getEstoque());
+                    }else {
+                        Livro livro = livros.get(j);
+                        System.out.println((j + 1) + ". " + livro.getTitulo() + " - " + livro.getPreco());
+                    }
 
-            }
 
-            // Solicitar escolha do livro
-            System.out.print("Escolha o número do livro para o livro " + (i + 1) + ": ");
-            int escolha = scanner.nextInt();
-            if (escolha < 1 || escolha > livros.size()) {
-                System.out.println("Escolha inválida. Tente novamente.");
-                i--; // Decrementar para repetir a iteração atual
-                continue;
-            }
+                }
 
-            // Criar e registrar a venda
-            Livro livroSelecionado = livros.get(escolha - 1);
-            if ("impresso".equalsIgnoreCase(tipo)) {
-                Impresso livroImpresso = (Impresso) livros.get(escolha - 1);
-                // Verificar e atualizar o estoque
-                if (livroImpresso.getEstoque() > 0) {
-                    // Adicionar livro selecionado à lista
+                // Solicitar escolha do livro
+                System.out.print("Escolha o número do livro para o livro " + (i + 1) + ": ");
+                int escolha = scanner.nextInt();
+                if (escolha < 1 || escolha > livros.size()) {
+                    System.out.println("Escolha inválida. Tente novamente.");
+                    i--; // Decrementar para repetir a iteração atual
+                    continue;
+                }
+
+                // Criar e registrar a venda
+                Livro livroSelecionado = livros.get(escolha - 1);
+                if ("impresso".equalsIgnoreCase(tipo)) {
+                    Impresso livroImpresso = (Impresso) livros.get(escolha - 1);
+                    // Verificar e atualizar o estoque
+                    if (livroImpresso.getEstoque() > 0) {
+                        // Adicionar livro selecionado à lista
+                        livrosSelecionados.add(livroSelecionado);
+
+                        // Registrar a venda
+                        Venda venda = new Venda(cliente, livrosSelecionados);
+                        vendaService.realizarVenda(venda);
+
+                        System.out.println("Venda registrada com sucesso!");
+                        livroImpresso.setEstoque(livroImpresso.getEstoque() - 1);
+                        livroService.livroUpdate(livroImpresso); // Atualizar o livro no banco de dados
+                    } else {
+                        System.out.println("Estoque insuficiente para o livro " + livroSelecionado.getTitulo());
+                        i--; // Decrementar para repetir a iteração atual
+                        continue;
+                    }
+                }else if("eletronico".equalsIgnoreCase(tipo)){
                     livrosSelecionados.add(livroSelecionado);
 
                     // Registrar a venda
@@ -235,25 +255,12 @@ public class Main {
                     vendaService.realizarVenda(venda);
 
                     System.out.println("Venda registrada com sucesso!");
-                    livroImpresso.setEstoque(livroImpresso.getEstoque() - 1);
-                    livroService.livroUpdate(livroImpresso); // Atualizar o livro no banco de dados
-                } else {
-                    System.out.println("Estoque insuficiente para o livro " + livroSelecionado.getTitulo());
-                    i--; // Decrementar para repetir a iteração atual
-                    continue;
                 }
-            }else if("eletronico".equalsIgnoreCase(tipo)){
-                livrosSelecionados.add(livroSelecionado);
 
-                // Registrar a venda
-                Venda venda = new Venda(cliente, livrosSelecionados);
-                vendaService.realizarVenda(venda);
 
-                System.out.println("Venda registrada com sucesso!");
             }
-
-
         }
+        System.out.println("Voce não pode realizar mais vendas. Limite atingindo");
     }
 
     private static void listarLivros() {
