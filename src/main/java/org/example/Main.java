@@ -2,10 +2,7 @@ package org.example;
 
 import org.example.dao.LivroDAO;
 import org.example.dao.VendaDAO;
-import org.example.models.Eletronico;
-import org.example.models.Impresso;
-import org.example.models.Livro;
-import org.example.models.Venda;
+import org.example.models.*;
 import org.example.services.LivroService;
 import org.example.services.VendaService;
 
@@ -68,7 +65,7 @@ public class Main {
         return scanner.nextInt();
     }
 
-    private static void cadastrarLivro() {
+    private static void cadastrarLivro(LivrariaVirtual livraria) {
         System.out.println("Opção 'Cadastrar livro' selecionada.");
 
         int tipoLivro = 0;
@@ -94,6 +91,27 @@ public class Main {
             }
         }
 
+        // Verificar se há espaço para mais livros impressos e/ou eletrônicos
+        if (tipoLivro == 1 || tipoLivro == 3) {
+            if (livraria.getNumImpressos() >= LivrariaVirtual.MAX_IMPRESSOS) {
+                System.out.println("Limite de livros impressos atingido. Não é possível cadastrar mais livros impressos.");
+                tipoLivro = (tipoLivro == 3) ? 2 : 0; // Se a opção era "Ambos", continuar com o livro eletrônico. Se era "Impresso", cancelar.
+            }
+        }
+
+        if (tipoLivro == 2 || tipoLivro == 3) {
+            if (livraria.getNumEletronicos() >= LivrariaVirtual.MAX_ELETRONICOS) {
+                System.out.println("Limite de livros eletrônicos atingido. Não é possível cadastrar mais livros eletrônicos.");
+                tipoLivro = (tipoLivro == 3) ? 1 : 0; // Se a opção era "Ambos", continuar com o livro impresso. Se era "Eletrônico", cancelar.
+            }
+        }
+
+        // Se nenhum tipo de livro puder ser cadastrado, sair
+        if (tipoLivro == 0) {
+            System.out.println("Nenhum livro foi cadastrado.");
+            return;
+        }
+
         // Coletar detalhes do livro
         System.out.print("Digite o título do livro: ");
         String titulo = scanner.nextLine();
@@ -113,20 +131,23 @@ public class Main {
             int estoque = scanner.nextInt();
             scanner.nextLine(); // Limpa a linha de entrada
             Impresso livroImpresso = new Impresso(titulo, autor, editora, preco, frete, estoque);
-            livroService.cadastrarLivro(livroImpresso);
+            livraria.getImpressos().add(livroImpresso);
+            livraria.setNumImpressos(livraria.getNumImpressos() + 1);
             System.out.println("Livro Impresso '" + titulo + "' de " + autor + " cadastrado com sucesso por R$" + preco + ".");
         }
 
         if (tipoLivro == 2 || tipoLivro == 3) {
             // Livro Eletrônico
-            System.out.print("Digite o tamanho do arquivo (em MB): ");
+            System.out.print("Digite o tamanho do arquivo (em KB): ");
             int tamanhoArquivo = scanner.nextInt();
             scanner.nextLine(); // Limpa a linha de entrada
             Eletronico livroEletronico = new Eletronico(titulo, autor, editora, preco, tamanhoArquivo);
-            livroService.cadastrarLivro(livroEletronico);
+            livraria.getEletronicos().add(livroEletronico);
+            livraria.setNumEletronicos(livraria.getNumEletronicos() + 1);
             System.out.println("Livro Eletrônico '" + titulo + "' de " + autor + " cadastrado com sucesso por R$" + preco + ".");
         }
     }
+
 
     private static void realizarVenda() {
         System.out.println("Opção 'Realizar venda' selecionada.");
